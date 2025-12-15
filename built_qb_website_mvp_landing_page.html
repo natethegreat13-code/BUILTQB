@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BuiltQB | Quarterbacks Are Built</title>
+  <meta name="description" content="BuiltQB is an AI-powered quarterback development platform that builds better mechanics, stronger arms, and smarter decision-makers." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; font-family: 'Inter', sans-serif; background-color: #0b0b0b; color: #ffffff; line-height: 1.6; }
+    header { padding: 24px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1f1f1f; }
+    header h1 { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
+    nav a { color: #ffffff; text-decoration: none; margin-left: 24px; font-weight: 500; }
+    .hero { padding: 100px 40px; max-width: 1100px; margin: auto; }
+    .hero h2 { font-size: 48px; font-weight: 800; margin-bottom: 16px; }
+    .hero p { font-size: 18px; max-width: 600px; color: #cccccc; }
+    .cta { margin-top: 32px; }
+    .cta button { background: #ffffff; color: #000000; padding: 14px 28px; font-size: 16px; font-weight: 700; border: none; border-radius: 6px; cursor: pointer; }
+    section { padding: 80px 40px; max-width: 1100px; margin: auto; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 32px; }
+    .card { background: #141414; padding: 32px; border-radius: 12px; }
+    .card h3 { margin-top: 0; font-size: 20px; font-weight: 700; }
+    footer { border-top: 1px solid #1f1f1f; padding: 40px; text-align: center; color: #777777; font-size: 14px; }
+    .ai-chat { position: fixed; right: 20px; bottom: 20px; width: 320px; max-height: 420px; background: #141414; border-radius: 12px; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 1000; }
+    .ai-chat-header { padding: 12px 16px; font-weight: 700; border-bottom: 1px solid #1f1f1f; }
+    .ai-chat-messages { flex: 1; padding: 16px; font-size: 14px; overflow-y: auto; color: #cccccc; }
+    .ai-chat-input { display: flex; border-top: 1px solid #1f1f1f; }
+    .ai-chat-input input { flex: 1; padding: 12px; background: #0b0b0b; border: none; color: #ffffff; font-size: 14px; }
+    .ai-chat-input button { background: #ffffff; color: #000000; border: none; padding: 0 16px; font-weight: 700; cursor: pointer; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>BUILTQB</h1>
+  <nav>
+    <a href="#product">Product</a>
+    <a href="#how">How It Works</a>
+    <a href="#who">Who It's For</a>
+  </nav>
+</header>
+<section class="hero">
+  <h2>Quarterbacks Are Built.</h2>
+  <p>BuiltQB is an AI-powered quarterback development platform designed to improve throwing mechanics, arm strength, durability, and football IQ through personalized analysis and training.</p>
+  <div class="cta"><button onclick="showWaitlistForm()">Join the Waitlist</button></div>
+</section>
+
+<!-- Waitlist Form Modal -->
+<div id="waitlistModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:2000;">
+  <div style="background:#141414; padding:40px; border-radius:12px; max-width:400px; width:90%; text-align:center;">
+    <h3>Join the BuiltQB Waitlist</h3>
+    <input type="email" id="waitlistEmail" placeholder="Enter your email" style="width:100%; padding:12px; margin-top:16px; border-radius:6px; border:none;" />
+    <button onclick="submitWaitlist()" style="margin-top:16px; padding:12px 24px; border:none; border-radius:6px; cursor:pointer; background:#ffffff; color:#000; font-weight:700;">Submit</button>
+    <div style="margin-top:12px; font-size:12px; color:#ccc;">We respect your privacy. No spam.</div>
+  </div>
+</div>
+
+<!-- AI Chat Box -->
+<div class="ai-chat">
+  <div class="ai-chat-header">BuiltQB AI Coach</div>
+  <div class="ai-chat-messages" id="chatMessages">
+    <p><strong>AI Coach:</strong> Ask me anything about your mechanics, workouts, or report.</p>
+  </div>
+  <div class="ai-chat-input">
+    <input type="text" id="chatInput" placeholder="Ask a question..." />
+    <button onclick="sendChat()">Send</button>
+  </div>
+</div>
+
+<script>
+  function sendChat() {
+    const input = document.getElementById('chatInput');
+    const messages = document.getElementById('chatMessages');
+    if (input.value.trim() === '') return;
+    const userMsg = document.createElement('p');
+    userMsg.innerHTML = '<strong>You:</strong> ' + input.value;
+    messages.appendChild(userMsg);
+    const aiMsg = document.createElement('p');
+    aiMsg.innerHTML = '<strong>AI Coach:</strong> Based on your report, focus on improving hip lead and lower-body initiation. Stick to your mobility and gym plan consistently.';
+    messages.appendChild(aiMsg);
+    messages.scrollTop = messages.scrollHeight;
+    input.value = '';
+  }
+
+  function showWaitlistForm() { document.getElementById('waitlistModal').style.display = 'flex'; }
+  function submitWaitlist() {
+    const email = document.getElementById('waitlistEmail').value;
+    if(!email) { alert('Please enter a valid email.'); return; }
+    // In a real app, send to backend database
+    alert('Thanks! You are now on the BuiltQB waitlist: ' + email);
+    document.getElementById('waitlistModal').style.display = 'none';
+    scheduleDailyEmail(email);
+  }
+
+  // Daily Email Scheduler (Prototype)
+  function scheduleDailyEmail(email) {
+    console.log('Daily workout scheduled to be sent to:', email);
+    alert('Your daily workout will be emailed to ' + email + ' every day.');
+  }
+</script>
+</body>
+</html>
